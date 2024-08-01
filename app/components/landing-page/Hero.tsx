@@ -58,42 +58,42 @@ export default function Hero() {
 
   
 
-  const { mutate: onSubmit, isPending } = useMutation({
-    mutationFn: registerForm,
-    onSuccess: (data) => {
-      toast.success("Success");
-      reset();
-    },
-    onError: () => {
-      toast.error("Something went wrong!");
-    },
-  });
-  const checkUserId = async () => {
-    if (user) {
-      try {
-        const userId = user?.userId;
-        const response = await axios.get(`/api/hippa-contract/${userId}`);
-        if (
-          response?.data?.message === "No Record found"
-        ) {
-          navigateTo("/hippa-contract");
-        } else {
-          console.log("ID present");
-        }
-      } catch (error) {
-        console.error("Error fetching record:", error);
-      }
-    } else {
-      console.log("No user found");
-    }
-  };
+  // const { mutate: onSubmit, isPending } = useMutation({
+  //   mutationFn: registerForm,
+  //   onSuccess: (data) => {
+  //     toast.success("Success");
+  //     reset();
+  //   },
+  //   onError: () => {
+  //     toast.error("Something went wrong!");
+  //   },
+  // });
+  // const checkUserId = async () => {
+  //   if (user) {
+  //     try {
+  //       const userId = user?.userId;
+  //       const response = await axios.get(`/api/hippa-contract/${userId}`);
+  //       if (
+  //         response?.data?.message === "No Record found"
+  //       ) {
+  //         navigateTo("/hippa-contract");
+  //       } else {
+  //         console.log("ID present");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching record:", error);
+  //     }
+  //   } else {
+  //     console.log("No user found");
+  //   }
+  // };
 
   React.useLayoutEffect(() => {
-    checkUserId();
+    // checkUserId();
   }, [user]);
   
   return (
-    <form onSubmit={handleSubmit(onSubmit as any)} style={{ width: "100%" }}>
+    <form style={{ width: "100%" }}>
       <Stack
         spacing={2}
         useFlexGap
@@ -271,7 +271,7 @@ export default function Hero() {
         >
           {isPending ? t("heroSendingButton") : t("heroSendButton")}
         </Button> */}
-        <Button
+        {/* <Button
           variant="contained"
           color="primary"
           sx={{ alignSelf: "flex-start", marginTop: 3, width: "10vw" }}
@@ -282,7 +282,7 @@ export default function Hero() {
           ) : (
             t("heroSendButton")
           )}
-        </Button>
+        </Button> */}
       </Stack>
     </form>
   );
