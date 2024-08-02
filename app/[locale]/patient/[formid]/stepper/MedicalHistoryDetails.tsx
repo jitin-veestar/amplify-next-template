@@ -7,7 +7,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import React, { forwardRef, useRef, useEffect } from "react";
-import { FormBoxWrapper } from "../component/CustomFormWrapper";
+import { FormBoxWrapper } from "../CustomFormWrapper";
 import Heading from "@/app/components/Heading";
 import { useFormContext } from "react-hook-form";
 import TableFormField from "@/app/components/form/FormTable";

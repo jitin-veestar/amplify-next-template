@@ -1,6 +1,6 @@
 "use client";
 import Hero from "../components/landing-page/Hero";
-import { Box, Button, Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import Features from "../components/landing-page/Features";
 import AppHeader from "../components/layout/AppHeader";
 import AppFooter from "../components/layout/AppFooter";
@@ -30,10 +30,7 @@ export default function Home() {
             pb: { xs: 8, sm: 12 },
           }}
         >
-          {/* <div style={{ filter: "blur(1px)" }}> */}
-          {/* <Button>Login</Button> */}
           <Hero />
-          {/* </div> */}
           <Features />
         </Container>
       </Box>

@@ -9,7 +9,7 @@ import {
   FormControl,
 } from "@mui/material";
 import React, { forwardRef, useEffect, useMemo, useState } from "react";
-import { FormBoxWrapper } from "../component/CustomFormWrapper";
+import { FormBoxWrapper } from "../CustomFormWrapper";
 import Heading from "@/app/components/Heading";
 import { useFormContext } from "react-hook-form";
 import FormCheck from "@/app/components/form/FormCheck";

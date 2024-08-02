@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 .patient_dob{
     z-index: 2 !important;
 }

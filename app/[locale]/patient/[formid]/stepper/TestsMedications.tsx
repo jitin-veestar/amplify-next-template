@@ -14,7 +14,7 @@ import {
   Divider,
 } from "@mui/material";
 import React, { forwardRef, useEffect, useState } from "react";
-import { FormBoxWrapper } from "../component/CustomFormWrapper";
+import { FormBoxWrapper } from "../CustomFormWrapper";
 import Heading from "@/app/components/Heading";
 import { useFormContext } from "react-hook-form";
 import TableFormField from "@/app/components/form/FormTable";
