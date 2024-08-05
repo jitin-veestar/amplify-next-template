@@ -139,7 +139,7 @@ const BasicSurgicalDetails: React.FC<BasicSurgicalDetailsProps> = ({
                         margin: 0,
                       },
                     "& input": {
-                      "-moz-appearance": "textfield",
+                      "mozAppearance": "textfield",
                     },
                   },
                 }}
@@ -163,11 +163,11 @@ const BasicSurgicalDetails: React.FC<BasicSurgicalDetailsProps> = ({
                     min: 0,
                     "& input::-webkit-inner-spin-button, & input::-webkit-outer-spin-button":
                       {
-                        "-webkit-appearance": "none",
+                        // "-webkit-appearance": "none",
                         margin: 0,
                       },
                     "& input": {
-                      "-moz-appearance": "textfield",
+                      "mozAppearance": "textfield",
                     },
                   },
                 }}
@@ -193,11 +193,11 @@ const BasicSurgicalDetails: React.FC<BasicSurgicalDetailsProps> = ({
                     min: 0,
                     "& input::-webkit-inner-spin-button, & input::-webkit-outer-spin-button":
                       {
-                        "-webkit-appearance": "none",
+                        // "-webkit-appearance": "none",
                         margin: 0,
                       },
                     "& input": {
-                      "-moz-appearance": "textfield",
+                      "mozAppearance": "textfield",
                     },
                   },
                 }}
@@ -230,11 +230,11 @@ const BasicSurgicalDetails: React.FC<BasicSurgicalDetailsProps> = ({
                     min: 0,
                     "& input::-webkit-inner-spin-button, & input::-webkit-outer-spin-button":
                       {
-                        "-webkit-appearance": "none",
+                        // "-webkit-appearance": "none",
                         margin: 0,
                       },
                     "& input": {
-                      "-moz-appearance": "textfield",
+                      "mozAppearance": "textfield",
                     },
                   },
                 }}
@@ -270,11 +270,11 @@ const BasicSurgicalDetails: React.FC<BasicSurgicalDetailsProps> = ({
                     min: 0,
                     "& input::-webkit-inner-spin-button, & input::-webkit-outer-spin-button":
                       {
-                        "-webkit-appearance": "none",
+                        // "-webkit-appearance": "none",
                         margin: 0,
                       },
                     "& input": {
-                      "-moz-appearance": "textfield",
+                      "mozAppearance": "textfield",
                     },
                   },
                 }}

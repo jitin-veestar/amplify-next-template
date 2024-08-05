@@ -1,3 +1,4 @@
+"use client";
 import { redirect } from "next/navigation";
 import {
   signUp,
@@ -11,7 +12,6 @@ import {
   autoSignIn,
 } from "aws-amplify/auth";
 import { getErrorMessage } from "../utils/get-error-message";
-import useNavigateWithLocale from "../hooks/useNavigateLocale";
 
 export async function handleSignUp(
   prevState: string | undefined,

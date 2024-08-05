@@ -5,9 +5,17 @@ import Features from "../components/landing-page/Features";
 import AppHeader from "../components/layout/AppHeader";
 import AppFooter from "../components/layout/AppFooter";
 import { useTranslations } from "next-intl";
+import { Amplify, type ResourcesConfig } from "aws-amplify";
+import { authConfig } from "../amplify-cognito-config";
+
+Amplify.configure({
+  Auth: authConfig,
+},
+{ ssr: true });
 
 export default function Home() {
   const t = useTranslations("Index");
+
 
   return (
     <>

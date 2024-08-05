@@ -66,7 +66,7 @@ export default function ConfirmSignUpForm() {
         toast.success('User is Confirmed. Please login')
         navigateToLogin(data.email)
       }
-    } catch (error) {
+    } catch (error: any) {
       setError('apiError', { message: error.message })
     }
   }
