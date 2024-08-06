@@ -4,9 +4,9 @@ import { data } from './data/resource.js';
 // import {hippaContractData} from './data/hippaContract.js';
 // import { aws_dynamodb } from "aws-cdk-lib";
 
-const backend = defineBackend({
+defineBackend({
   auth,
-  data,
+  data
 });
 
 
