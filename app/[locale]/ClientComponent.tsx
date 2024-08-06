@@ -4,6 +4,7 @@
 import React from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Box, CssBaseline } from "@mui/material";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ThemeRegistry from "../ThemeRegistry";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,7 +12,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { NextIntlClientProvider } from "next-intl";
 
-
+const client = new QueryClient();
 interface ClientComponentProps {
   children: React.ReactNode;
   locale: string;
@@ -24,6 +25,7 @@ export default function ClientComponent({
   messages,
 }: ClientComponentProps) {
   return (
+    <QueryClientProvider client={client}>
       <AppRouterCacheProvider>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <ThemeRegistry options={{ key: "mui-theme" }}>
@@ -46,5 +48,6 @@ export default function ClientComponent({
             </ThemeRegistry>
         </LocalizationProvider>
       </AppRouterCacheProvider>
+    </QueryClientProvider>
   );
 }

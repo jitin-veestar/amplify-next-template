@@ -19,8 +19,13 @@ import {
 } from '@mui/material'
 
 import useNavigateWithLocale from '@/app/hooks/useNavigateLocale'
+import { Amplify } from 'aws-amplify'
+import { authConfig } from '@/app/amplify-cognito-config'
 
-// TODO remove, this demo shouldn't need to reset the theme.
+Amplify.configure({
+  Auth: authConfig,
+},
+{ ssr: true });
 
 export default function SignIn() {
   const navigateTo = useNavigateWithLocale()

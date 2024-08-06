@@ -7,6 +7,10 @@ import Typography from "@mui/material/Typography";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { generateClient } from 'aws-amplify/data';
+import axios from "axios";
+import { QueryClient, useMutation } from "@tanstack/react-query";
+import { registerForm } from "@/app/services/form-service";
 
 import { toast } from "react-toastify";
 import FormCheck from "../form/FormCheck";
@@ -31,6 +35,8 @@ const scrollToSection = (id: any) => {
     element.scrollIntoView({ behavior: "smooth" });
   }
 };
+const client = new QueryClient();
+// const awsClient = generateClient<any>();
 
 export default function Hero() {
   const {
@@ -58,38 +64,39 @@ export default function Hero() {
 
   
 
-  // const { mutate: onSubmit, isPending } = useMutation({
-  //   mutationFn: registerForm,
-  //   onSuccess: (data) => {
-  //     toast.success("Success");
-  //     reset();
-  //   },
-  //   onError: () => {
-  //     toast.error("Something went wrong!");
-  //   },
-  // });
-  // const checkUserId = async () => {
-  //   if (user) {
-  //     try {
-  //       const userId = user?.userId;
-  //       const response = await axios.get(`/api/hippa-contract/${userId}`);
-  //       if (
-  //         response?.data?.message === "No Record found"
-  //       ) {
-  //         navigateTo("/hippa-contract");
-  //       } else {
-  //         console.log("ID present");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching record:", error);
-  //     }
-  //   } else {
-  //     console.log("No user found");
-  //   }
-  // };
+  const { mutate: onSubmit, isPending } = useMutation({
+    mutationFn: registerForm,
+    onSuccess: (data) => {
+      toast.success("Success");
+      reset();
+    },
+    onError: () => {
+      toast.error("Something went wrong!");
+    },
+  });
+
+  const checkUserId = async () => {
+    if (user) {
+      try {
+        const userId = user?.userId;
+        const response = await axios.get(`/api/hippa-contract/${userId}`);
+        if (
+          response?.data?.message === "No Record found"
+        ) {
+          navigateTo("/hippa-contract");
+        } else {
+          console.log("ID present");
+        }
+      } catch (error) {
+        console.error("Error fetching record:", error);
+      }
+    } else {
+      console.log("No user found");
+    }
+  };
 
   React.useLayoutEffect(() => {
-    // checkUserId();
+    checkUserId();
   }, [user]);
   
   return (

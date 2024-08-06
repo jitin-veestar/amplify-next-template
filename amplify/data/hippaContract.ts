@@ -14,6 +14,16 @@ const schema = a.schema({
         acceptHippa: a.boolean(),
       })
       .authorization((allow) => [allow.authenticated()]),
+    Post: a.customType({
+    content: a.string(),
+    userId: a.string(),
+    name: a.string(),
+    facilityEmail: a.string(),
+    city: a.string(),
+    country: a.string(),
+    facilityName: a.string(),
+    acceptHippa: a.boolean(),
+  }),
   });
   
   export type Schema = ClientSchema<typeof schema>;

@@ -7,6 +7,7 @@ import AppFooter from "../components/layout/AppFooter";
 import { useTranslations } from "next-intl";
 import { Amplify, type ResourcesConfig } from "aws-amplify";
 import { authConfig } from "../amplify-cognito-config";
+// import outputs from '../../amplify_outputs.json';
 
 Amplify.configure({
   Auth: authConfig,
