@@ -26,6 +26,7 @@
     "aws-cdk-lib": "^2.151.0",
     "axios": "^1.7.3",
     "browser-image-compression": "^2.0.2",
+    "constructs": "^10.3.0",
     "date-fns": "^3.6.0",
     "lodash": "^4.17.21",
     "next": "14.1.1",
