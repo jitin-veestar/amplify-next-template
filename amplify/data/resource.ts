@@ -3,21 +3,17 @@ import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 const schema = a.schema({
   IndexForm: a
       .model({
-        content: a.string(),
-        userId: a.string(),
-        name: a.string(),
-        facilityEmail: a.string(),
-        city: a.string(),
-        country: a.string(),
-        facilityName: a.string(),
-        acceptHippa: a.boolean(),
+        firstName: a.string(),
+        lastName: a.string(),
+        senderEmail: a.string(),
+        receiverEmail: a.string(),
+        message: a.string(),
+        consent: a.boolean(),
+        images: a.boolean(),
       })
       .authorization((allow) => [allow.publicApiKey()]),
 
-    addHippaContract: a
-      .mutation()
-      .arguments({
-        content: a.string(),
+      HippaContract: a.model({
         userId: a.string(),
         name: a.string(),
         facilityEmail: a.string(),
@@ -25,15 +21,7 @@ const schema = a.schema({
         country: a.string(),
         facilityName: a.string(),
         acceptHippa: a.boolean(),
-      })
-      .returns(a.ref("IndexForm"))
-      .authorization(allow => [allow.publicApiKey()])
-      // .handler(
-      //   a.handler.custom({
-      //     dataSource: "hippaContractTable",
-      //     entry: "./addHippaContract.js",
-      //   })
-      // )
+      }).authorization((allow) => allow.authenticated())
 });
 
 export type Schema = ClientSchema<typeof schema>;
