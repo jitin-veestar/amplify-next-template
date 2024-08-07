@@ -13,6 +13,7 @@ const schema = a.schema({
         acceptHippa: a.boolean(),
       })
       .authorization((allow) => [allow.authenticated()]),
+
     addHippaContract: a
       .mutation()
       .arguments({
@@ -25,14 +26,14 @@ const schema = a.schema({
         facilityName: a.string(),
         acceptHippa: a.boolean(),
       })
-      .returns(a.ref("Post"))
+      .returns(a.ref("IndexForm"))
       .authorization(allow => [allow.authenticated()])
-      .handler(
-        a.handler.custom({
-          dataSource: "hippaContractTable",
-          entry: "./addHippaContract.js",
-        })
-      )
+      // .handler(
+      //   a.handler.custom({
+      //     dataSource: "hippaContractTable",
+      //     entry: "./addHippaContract.js",
+      //   })
+      // )
 });
 
 export type Schema = ClientSchema<typeof schema>;
