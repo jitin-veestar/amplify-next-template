@@ -12,7 +12,7 @@ const schema = a.schema({
         facilityName: a.string(),
         acceptHippa: a.boolean(),
       })
-      .authorization((allow) => [allow.authenticated()]),
+      .authorization((allow) => [allow.publicApiKey()]),
 
     addHippaContract: a
       .mutation()
@@ -27,7 +27,7 @@ const schema = a.schema({
         acceptHippa: a.boolean(),
       })
       .returns(a.ref("IndexForm"))
-      .authorization(allow => [allow.authenticated()])
+      .authorization(allow => [allow.publicApiKey()])
       // .handler(
       //   a.handler.custom({
       //     dataSource: "hippaContractTable",
