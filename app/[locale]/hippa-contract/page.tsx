@@ -1,6 +1,6 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+'use client'
+import React, { useEffect, useState } from 'react'
+import { useForm, Controller } from 'react-hook-form'
 import {
   Box,
   Button,
@@ -10,76 +10,74 @@ import {
   Checkbox,
   Grid,
   CircularProgress,
-} from "@mui/material";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import HippaDialog from "@/app/components/landing-page/HippaDialog";
-import { useTranslations } from "next-intl";
-import useAuthUser from "@/app/hooks/useAuthUser";
-import { generateClient } from "aws-amplify/data";
-import useNavigateWithLocale from "@/app/hooks/useNavigateLocale";
-import { Amplify } from "aws-amplify";
-import {Schema} from '@/amplify/data/resource';
+} from '@mui/material'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import HippaDialog from '@/app/components/landing-page/HippaDialog'
+import { useTranslations } from 'next-intl'
+import useAuthUser from '@/app/hooks/useAuthUser'
+import { generateClient } from 'aws-amplify/data'
+import useNavigateWithLocale from '@/app/hooks/useNavigateLocale'
+import { Amplify } from 'aws-amplify'
+import { Schema } from '@/amplify/data/resource'
 
-const client = generateClient<Schema>();
+const client = generateClient<Schema>()
 
 interface IFormInput {
-  userId: string;
-  name: string;
-  facilityEmail: string;
-  city: string;
-  country: string;
-  facilityName: string;
-  acceptHippa: boolean;
+  userId: string
+  name: string
+  facilityEmail: string
+  city: string
+  country: string
+  facilityName: string
+  acceptHippa: boolean
 }
 
 const HippaContract: React.FC = () => {
-  const { user, loading: loadingUser } = useAuthUser();
-  const navigateTo = useNavigateWithLocale();
-  const [loading, setLoading] = useState(false);
-  const [hippaContract, setHippaContract] = useState(false);
-  const [showConcentDialog, setShowConcentDialog] = useState(false);
-  const t = useTranslations("Index");
+  const { user, loading: loadingUser } = useAuthUser()
+  const navigateTo = useNavigateWithLocale()
+  const [loading, setLoading] = useState(false)
+  const [hippaContract, setHippaContract] = useState(false)
+  const [showConcentDialog, setShowConcentDialog] = useState(false)
+  const t = useTranslations('Index')
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<IFormInput>({
     defaultValues: {
-      userId: user?.userId || "default",
-      name: "",
-      facilityEmail: "",
-      city: "",
-      country: "",
-      facilityName: "",
+      userId: user?.userId || 'default',
+      name: '',
+      facilityEmail: '',
+      city: '',
+      country: '',
+      facilityName: '',
       acceptHippa: false,
     },
-  });
-  const router = useRouter();
-
-  
+  })
+  const router = useRouter()
 
   const onSubmit = async (data: IFormInput) => {
-    setLoading(true);
-    console.log("ONsubmit::::::", user);
-    console.log("final data", data);
+    setLoading(true)
+    console.log('ONsubmit::::::', user)
+    console.log('final data', data)
     try {
-      client.models.IndexForm.create({
-        ...data
-      });
+      // client.models.IndexForm.create({
+      //   ...data,
+      // })
       // const response = await axios.post("/api/hippa-contract", {
       //   ...data,
       //   userId: user?.userId,
       // });
       // console.log({response})
 
-      navigateTo("");
+      // navigateTo('')
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error('Error submitting form:', error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   // useEffect(() => {
   //   if (!loadingUser && !user){
@@ -105,9 +103,9 @@ const HippaContract: React.FC = () => {
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "100%" },
-        maxWidth: "600px",
-        margin: "auto",
+        '& .MuiTextField-root': { m: 1, width: '100%' },
+        maxWidth: '600px',
+        margin: 'auto',
         paddingTop: 10,
       }}
       noValidate
@@ -120,7 +118,7 @@ const HippaContract: React.FC = () => {
         marginLeft={2}
         marginBottom={2}
       >
-        {t("hippaContractFormTitle")}
+        {t('hippaContractFormTitle')}
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -130,10 +128,10 @@ const HippaContract: React.FC = () => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label={t("hippaContractNameLabel")}
+                label={t('hippaContractNameLabel')}
                 variant="outlined"
                 error={!!errors.name}
-                helperText={errors.name ? t("hippaContractNameRequired") : ""}
+                helperText={errors.name ? t('hippaContractNameRequired') : ''}
               />
             )}
             rules={{ required: true }}
@@ -146,13 +144,13 @@ const HippaContract: React.FC = () => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label={t("hippaContractFacilityEmailLabel")}
+                label={t('hippaContractFacilityEmailLabel')}
                 variant="outlined"
                 error={!!errors.facilityEmail}
                 helperText={
                   errors.facilityEmail
-                    ? t("hippaContractFacilityEmailRequired")
-                    : ""
+                    ? t('hippaContractFacilityEmailRequired')
+                    : ''
                 }
               />
             )}
@@ -166,10 +164,10 @@ const HippaContract: React.FC = () => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label={t("hippaContractCityLabel")}
+                label={t('hippaContractCityLabel')}
                 variant="outlined"
                 error={!!errors.city}
-                helperText={errors.city ? t("hippaContractCityRequired") : ""}
+                helperText={errors.city ? t('hippaContractCityRequired') : ''}
               />
             )}
             rules={{ required: true }}
@@ -182,11 +180,11 @@ const HippaContract: React.FC = () => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label={t("hippaContractCountryLabel")}
+                label={t('hippaContractCountryLabel')}
                 variant="outlined"
                 error={!!errors.country}
                 helperText={
-                  errors.country ? t("hippaContractCountryRequired") : ""
+                  errors.country ? t('hippaContractCountryRequired') : ''
                 }
               />
             )}
@@ -200,13 +198,13 @@ const HippaContract: React.FC = () => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label={t("hippaContractFacilityNameLabel")}
+                label={t('hippaContractFacilityNameLabel')}
                 variant="outlined"
                 error={!!errors.facilityName}
                 helperText={
                   errors.facilityName
-                    ? t("hippaContractFacilityNameRequired")
-                    : ""
+                    ? t('hippaContractFacilityNameRequired')
+                    : ''
                 }
               />
             )}
@@ -223,19 +221,19 @@ const HippaContract: React.FC = () => {
                   <Checkbox
                     {...field}
                     onChange={(e) => {
-                      field.onChange(e);
-                      setHippaContract(e.target.checked);
+                      field.onChange(e)
+                      setHippaContract(e.target.checked)
                     }}
                   />
                 }
                 label={
                   <>
-                    {t("hippaContractAcceptHippaLabel")}
+                    {t('hippaContractAcceptHippaLabel')}
                     <span
-                      style={{ textDecoration: "underline", cursor: "pointer" }}
+                      style={{ textDecoration: 'underline', cursor: 'pointer' }}
                       onClick={() => setShowConcentDialog(true)}
                     >
-                      {t("hippaContractHippaContract")}
+                      {t('hippaContractHippaContract')}
                     </span>
                   </>
                 }
@@ -247,7 +245,7 @@ const HippaContract: React.FC = () => {
         {errors.acceptHippa && (
           <Grid item xs={12}>
             <Typography color="error">
-              {t("hippaContractAcceptHippaRequired")}
+              {t('hippaContractAcceptHippaRequired')}
             </Typography>
           </Grid>
         )}
@@ -260,9 +258,9 @@ const HippaContract: React.FC = () => {
             fullWidth
           >
             {loading ? (
-              <CircularProgress size={20} style={{ color: "white" }} />
+              <CircularProgress size={20} style={{ color: 'white' }} />
             ) : (
-              t("hippaContractSubmitButton")
+              t('hippaContractSubmitButton')
             )}
           </Button>
         </Grid>
@@ -276,7 +274,7 @@ const HippaContract: React.FC = () => {
         />
       )}
     </Box>
-  );
-};
+  )
+}
 
-export default HippaContract;
+export default HippaContract

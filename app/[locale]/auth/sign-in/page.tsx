@@ -70,6 +70,7 @@ export default function SignIn() {
             id="email"
             label="Email Address"
             name="email"
+            // onBlur={handleButtonClick}
             defaultValue={email || ''}
             autoComplete="email"
             autoFocus
@@ -100,6 +101,7 @@ export default function SignIn() {
             <Grid item xs>
               <Link
                 style={{ color: '#551A8B' }}
+                // onClick={handleButtonClick}
                 href="/auth/send-verification-code"
               >
                 {'Forgot password?'}
