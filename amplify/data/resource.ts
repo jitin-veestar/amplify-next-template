@@ -1,5 +1,8 @@
-import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import { type ClientSchema, a, defineData, defineFunction } from "@aws-amplify/backend";
 
+const getUserHandler = defineFunction({
+  entry: './user-handler/handler.ts'
+})
 const schema = a.schema({
   IndexForm: a
       .model({
@@ -11,9 +14,10 @@ const schema = a.schema({
         consent: a.boolean(),
         images: a.boolean(),
       })
-      .authorization((allow) => [allow.publicApiKey()]),
+      .authorization((allow) => [allow.authenticated()]),
 
-      HippaContract: a.model({
+      HippaContract: a
+      .model({
         userId: a.string(),
         name: a.string(),
         facilityEmail: a.string(),
@@ -21,8 +25,16 @@ const schema = a.schema({
         country: a.string(),
         facilityName: a.string(),
         acceptHippa: a.boolean(),
-      }).authorization((allow) => allow.authenticated())
+      })
+      .authorization((allow) => [allow.authenticated()]),
+
+      getUser: a.query().arguments({userId: a.string()})
+      .returns(a.ref('HippaContract'))
+      .authorization(allow => [allow.authenticated()])
+      .handler(a.handler.function(getUserHandler))
 });
+
+
 
 export type Schema = ClientSchema<typeof schema>;
 

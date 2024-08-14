@@ -6,17 +6,21 @@ import AppHeader from "../components/layout/AppHeader";
 import AppFooter from "../components/layout/AppFooter";
 import { useTranslations } from "next-intl";
 import { Amplify, type ResourcesConfig } from "aws-amplify";
-import { authConfig } from "../amplify-cognito-config";
-// import outputs from '../../amplify_outputs.json';
+// import { authConfig } from "../amplify-cognito-config";
+import output from '../../amplify_outputs.json';
+import { generateClient } from "aws-amplify/data";
+import { Schema } from "@/amplify/data/resource";
+import { useEffect } from "react";
 
-Amplify.configure({
-  Auth: authConfig,
-},
-{ ssr: true });
+Amplify.configure(output);
+const client  = generateClient<Schema>();
 
 export default function Home() {
   const t = useTranslations("Index");
-
+  useEffect( ()=> {
+    // const res: any = id.json(); 
+    client.models.HippaContract.get({id: 'avinash@veestarsolutions.in'});
+  })
 
   return (
     <>
