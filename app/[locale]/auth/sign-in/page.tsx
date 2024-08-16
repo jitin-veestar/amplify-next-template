@@ -35,7 +35,7 @@ export default function SignIn() {
     const data = new FormData(event.currentTarget)
     const { success, message, redirectLink } = await handleSignIn('', data)
     if (success && redirectLink) {
-      navigateTo('')
+      navigateTo('/hippa-contract')
     } else if (!success && redirectLink) {
       toast.info(message)
       navigateTo(redirectLink)

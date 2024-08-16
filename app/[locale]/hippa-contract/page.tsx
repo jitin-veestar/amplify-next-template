@@ -60,22 +60,22 @@ const HippaContract: React.FC = () => {
     },
   })
   const router = useRouter()
-  async function getUserDetails(){
-    const id = getValues('facilityEmail');
-    const {data, errors} = await client.queries.getUser({userId: id})
-    return {data, errors};
-  }
+  // async function getUserDetails(){
+  //   const id = getValues('facilityEmail');
+  //   const {data, errors} = await client.queries.getUser({userId: id})
+  //   return {data, errors};
+  // }
 
   const onSubmit = async (data: IFormInput) => {
     setLoading(true)
-    const user = await getUserDetails();
+    // const user = await getUserDetails();
 
     console.log('final data', data)
     try {
       if(user){
       const res = await client.models.HippaContract.create({
         ...data,
-        userId: String(localStorage.getItem('user_id'))
+        userId: data?.facilityEmail
       });
       console.log(user, res);
       navigateTo('')

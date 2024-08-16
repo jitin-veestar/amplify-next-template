@@ -8,18 +8,15 @@ import { useTranslations } from "next-intl";
 import { Amplify, type ResourcesConfig } from "aws-amplify";
 // import { authConfig } from "../amplify-cognito-config";
 import output from '../../amplify_outputs.json';
-import { generateClient } from "aws-amplify/data";
-import { Schema } from "@/amplify/data/resource";
 import { useEffect } from "react";
 
 Amplify.configure(output);
-const client  = generateClient<Schema>();
 
 export default function Home() {
   const t = useTranslations("Index");
   useEffect( ()=> {
-    // const res: any = id.json(); 
-    client.models.HippaContract.get({id: 'avinash@veestarsolutions.in'});
+    // get hippacontract from the same login id to check if the user has already filled the hippa contract form
+    // const user = client.queries.getUser({userId: id})
   })
 
   return (

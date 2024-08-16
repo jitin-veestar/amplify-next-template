@@ -12,6 +12,9 @@ import {
   autoSignIn,
 } from "aws-amplify/auth";
 import { getErrorMessage } from "../utils/get-error-message";
+import { generateClient } from "aws-amplify/data";
+import { Schema } from "@/amplify/data/resource";
+const client  = generateClient<Schema>();
 
 export async function handleSignUp(
   prevState: string | undefined,
