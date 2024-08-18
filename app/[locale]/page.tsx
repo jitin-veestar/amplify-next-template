@@ -39,7 +39,7 @@ export default function Home() {
         const client = generateClient<Schema>({
           authToken: session?.tokens?.idToken?.toString()
         });
-        const hippaContract = await client.queries.getUser({ userId });
+        const hippaContract = await client.models.HippaContract.get({id: userId});
         console.log("sadfkjdfg", hippaContract);
       }
 

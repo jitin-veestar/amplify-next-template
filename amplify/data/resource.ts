@@ -1,8 +1,8 @@
 import { type ClientSchema, a, defineData, defineFunction } from "@aws-amplify/backend";
 
-const getHippaContractByUserId = defineFunction({
-  entry: './user-handler/handler'
-})
+// const getHippaContractByUserId = defineFunction({
+//   entry: './user-handler/handler.ts'
+// })
 const schema = a.schema({
   IndexForm: a
       .model({
@@ -14,11 +14,11 @@ const schema = a.schema({
         consent: a.boolean(),
         images: a.boolean(),
       })
-      .authorization((allow) => [allow.authenticated('userPools')]),
+      .authorization(allow => [allow.owner()]),
 
       HippaContract: a
       .model({
-        userId: a.string(),
+        userId: a.id().required(),
         name: a.string(),
         facilityEmail: a.string(),
         city: a.string(),
@@ -26,12 +26,17 @@ const schema = a.schema({
         facilityName: a.string(),
         acceptHippa: a.boolean(),
       })
-      .authorization((allow) => [allow.authenticated('userPools')]),
+      .authorization((allow) => [allow.owner()]),
 
-      getUser: a.query().arguments({userId: a.string()})
-      .returns(a.ref('HippaContract'))
-      .authorization(allow => [allow.authenticated('userPools')])
-      .handler(a.handler.function(getHippaContractByUserId))
+      // getUser: a.query().arguments({userId: a.string()})
+      // .returns(a.ref('HippaContract'))
+      // .authorization(allow => [allow.authenticated('userPools')])
+      // .handler(a.handler.custom({
+      //   dataSource: a.ref('HippaContract'),
+      //   entry: './user-handler/handler.ts'
+
+      // }))
+      // .handler(a.handler.function(getHippaContractByUserId))
 });
 
 
