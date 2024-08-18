@@ -14,7 +14,7 @@ const schema = a.schema({
         consent: a.boolean(),
         images: a.boolean(),
       })
-      .authorization((allow) => [allow.authenticated()]),
+      .authorization((allow) => [allow.authenticated('userPools')]),
 
       HippaContract: a
       .model({
@@ -26,11 +26,11 @@ const schema = a.schema({
         facilityName: a.string(),
         acceptHippa: a.boolean(),
       })
-      .authorization((allow) => [allow.authenticated()]),
+      .authorization((allow) => [allow.authenticated('userPools')]),
 
       getUser: a.query().arguments({userId: a.string()})
       .returns(a.ref('HippaContract'))
-      .authorization(allow => [allow.authenticated()])
+      .authorization(allow => [allow.authenticated('userPools')])
       .handler(a.handler.function(getHippaContractByUserId))
 });
 

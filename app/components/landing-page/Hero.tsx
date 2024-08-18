@@ -77,28 +77,28 @@ export default function Hero() {
     },
   });
 
-  const checkUserId = async () => {
-    if (user) {
-      try {
-        const { data, errors } = await client.queries.getUser({userId: user?.email});
-        if (
-          !data
-        ) {
-          navigateTo("/hippa-contract");
-        } else {
-          console.log("ID present");
-        }
-      } catch (error) {
-        console.error("Error fetching record:", errors);
-      }
-    } else {
-      console.log("No user found");
-    }
-  };
+  // const checkUserId = async () => {
+  //   if (user) {
+  //     try {
+  //       const { data, errors } = await client.queries.getUser({userId: user?.email});
+  //       if (
+  //         !data
+  //       ) {
+  //         navigateTo("/hippa-contract");
+  //       } else {
+  //         console.log("ID present");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching record:", errors);
+  //     }
+  //   } else {
+  //     console.log("No user found");
+  //   }
+  // };
 
-  React.useLayoutEffect(() => {
-    checkUserId();
-  }, [user]);
+  // React.useLayoutEffect(() => {
+  //   checkUserId();
+  // }, [user]);
   
   return (
     <form style={{ width: "100%" }}>
@@ -279,7 +279,7 @@ export default function Hero() {
         >
           {isPending ? t("heroSendingButton") : t("heroSendButton")}
         </Button>
-        <Button
+        {/* <Button
           variant="contained"
           color="primary"
           sx={{ alignSelf: "flex-start", marginTop: 3, width: "10vw" }}
@@ -290,7 +290,7 @@ export default function Hero() {
           ) : (
             t("heroSendButton")
           )}
-        </Button>
+        </Button> */}
       </Stack>
     </form>
   );
