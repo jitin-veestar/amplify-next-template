@@ -12,6 +12,7 @@ import output from '../../amplify_outputs.json';
 import { useEffect } from "react";
 import { generateClient } from "aws-amplify/api";
 import { type Schema } from '@/amplify/data/resource';
+import useNavigateWithLocale from "../hooks/useNavigateLocale";
 
 
 Amplify.configure(output);
@@ -27,6 +28,8 @@ Amplify.configure(output);
 
 export default function Home() {
   const t = useTranslations("Index");
+  const navigateTo = useNavigateWithLocale()
+
   useEffect(() => {
     // get hippacontract from the same login id to check if the user has already filled the hippa contract form
     async function initializeSession() {
@@ -41,6 +44,9 @@ export default function Home() {
         });
         const hippaContract = await client.models.HippaContract.get({id: userId});
         console.log("sadfkjdfg", hippaContract);
+        if(!hippaContract?.data){
+          navigateTo("/hippa-contract");
+        }
       }
 
     }

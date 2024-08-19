@@ -75,7 +75,8 @@ const HippaContract: React.FC = () => {
       if(user){
       const res = await client.models.HippaContract.create({
         ...data,
-        userId: data?.facilityEmail
+        userId: user?.userId,
+        id: user?.userId
       });
       console.log(user, res);
       navigateTo('')
