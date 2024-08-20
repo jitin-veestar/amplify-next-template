@@ -20,7 +20,9 @@ import { generateClient } from 'aws-amplify/data'
 import useNavigateWithLocale from '@/app/hooks/useNavigateLocale'
 import { Amplify } from 'aws-amplify'
 import { Schema } from '@/amplify/data/resource'
+import output from '../../../amplify_outputs.json';
 
+Amplify.configure(output);
 const client = generateClient<Schema>()
 
 interface IFormInput {
@@ -44,6 +46,8 @@ const HippaContract: React.FC = () => {
     handleSubmit,
     control,
     formState: { errors },
+    getValues,
+    watch
   } = useForm<IFormInput>({
     defaultValues: {
       userId: user?.userId || 'default',
@@ -56,22 +60,27 @@ const HippaContract: React.FC = () => {
     },
   })
   const router = useRouter()
+  // async function getUserDetails(){
+  //   const id = getValues('facilityEmail');
+  //   const {data, errors} = await client.queries.getUser({userId: id})
+  //   return {data, errors};
+  // }
 
   const onSubmit = async (data: IFormInput) => {
     setLoading(true)
-    console.log('ONsubmit::::::', user)
+    // const user = await getUserDetails();
+
     console.log('final data', data)
     try {
-      // client.models.IndexForm.create({
-      //   ...data,
-      // })
-      // const response = await axios.post("/api/hippa-contract", {
-      //   ...data,
-      //   userId: user?.userId,
-      // });
-      // console.log({response})
-
-      // navigateTo('')
+      if(user){
+      const res = await client.models.HippaContract.create({
+        ...data,
+        userId: user?.userId,
+        id: user?.userId
+      });
+      console.log(user, res);
+      navigateTo('')
+    }
     } catch (error) {
       console.error('Error submitting form:', error)
     } finally {
