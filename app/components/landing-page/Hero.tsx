@@ -21,7 +21,7 @@ import { Schema } from "@/amplify/data/resource";
 import useNavigateWithLocale from "@/app/hooks/useNavigateLocale";
 
 
-const client  = generateClient<Schema>();
+const client = generateClient<Schema>();
 
 const schema = z.object({
   firstName: z.string(),
@@ -33,6 +33,18 @@ const schema = z.object({
   images: z.boolean(),
 });
 
+interface IFormInput {
+  firstName: string
+  lastName: string
+  senderEmail: string
+  receiverEmail: string
+  message: string;
+  consent: boolean
+  images: boolean
+
+}
+
+
 const scrollToSection = (id: any) => {
   const element = document.getElementById(id);
   if (element) {
@@ -41,6 +53,8 @@ const scrollToSection = (id: any) => {
 };
 
 export default function Hero() {
+  const [loading, setLoading] = React.useState(false)
+
   const {
     handleSubmit,
     register,
@@ -61,21 +75,21 @@ export default function Hero() {
     },
   });
   const t = useTranslations("Index");
-  const {user} = useAuthUser()
+  const { user } = useAuthUser()
   const navigateTo = useNavigateWithLocale()
 
-  
 
-  const { mutate: onSubmit, isPending } = useMutation({
-    mutationFn: registerForm,
-    onSuccess: (data) => {
-      toast.success("Success");
-      reset();
-    },
-    onError: () => {
-      toast.error("Something went wrong!");
-    },
-  });
+
+  // const { mutate: onSubmit, isPending } = useMutation({
+  //   mutationFn: registerForm,
+  //   onSuccess: (data) => {
+  //     toast.success("Success");
+  //     reset();
+  //   },
+  //   onError: () => {
+  //     toast.error("Something went wrong!");
+  //   },
+  // });
 
   // const checkUserId = async () => {
   //   if (user) {
@@ -99,9 +113,35 @@ export default function Hero() {
   // React.useLayoutEffect(() => {
   //   checkUserId();
   // }, [user]);
-  
+
+  const onSubmit = async (data: IFormInput) => {
+    if(!user?.userId){
+      navigateTo('/auth/sign-in');
+      return;
+    }
+    setLoading(true)
+    // const user = await getUserDetails();
+
+    console.log('final data', data)
+    try {
+      if (user) {
+        const res = await client.models.IndexForm.create({
+          ...data,
+        });
+        console.log(user, res);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+
   return (
-    <form style={{ width: "100%" }}>
+    <form style={{ width: "100%" }} noValidate
+      autoComplete="off"
+      onSubmit={handleSubmit(onSubmit)}>
       <Stack
         spacing={2}
         useFlexGap
@@ -255,7 +295,7 @@ export default function Hero() {
               name={`consent`}
               control={control}
               label={t("heroCheckBox1")}
-              // error={""}
+            // error={""}
             />
           </div>
           <div style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -263,7 +303,7 @@ export default function Hero() {
               name={`images`}
               control={control}
               label={t("heroCheckBox2")}
-              // error={""}
+            // error={""}
             />
           </div>
         </Stack>
@@ -271,13 +311,13 @@ export default function Hero() {
           variant="contained"
           color="primary"
           sx={{ alignSelf: "flex-start", marginTop: 3, width: "10vw" }}
-          disabled={isPending}
+          disabled={loading}
           type="submit"
-          onClick={() => {
-            user ? handleSubmit(onSubmit as any) : "/api/auth/login";
-          }}
+          // onClick={() => {
+          //   user ? handleSubmit(onSubmit as any) : "";
+          // }}
         >
-          {isPending ? t("heroSendingButton") : t("heroSendButton")}
+          {loading ? t("heroSendingButton") : t("heroSendButton")}
         </Button>
         {/* <Button
           variant="contained"
