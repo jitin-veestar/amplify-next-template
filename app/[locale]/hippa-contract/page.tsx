@@ -16,14 +16,8 @@ import { useRouter } from 'next/navigation'
 import HippaDialog from '@/app/components/landing-page/HippaDialog'
 import { useTranslations } from 'next-intl'
 import useAuthUser from '@/app/hooks/useAuthUser'
-import { generateClient } from 'aws-amplify/data'
 import useNavigateWithLocale from '@/app/hooks/useNavigateLocale'
-import { Amplify } from 'aws-amplify'
-import { Schema } from '@/amplify/data/resource'
-import output from '../../../amplify_outputs.json';
-
-Amplify.configure(output);
-const client = generateClient<Schema>()
+import useClient from '@/app/hooks/useClient'
 
 interface IFormInput {
   userId: string
@@ -38,6 +32,7 @@ interface IFormInput {
 const HippaContract: React.FC = () => {
   const { user, loading: loadingUser } = useAuthUser()
   const navigateTo = useNavigateWithLocale()
+  const { client } = useClient();
   const [loading, setLoading] = useState(false)
   const [hippaContract, setHippaContract] = useState(false)
   const [showConcentDialog, setShowConcentDialog] = useState(false)
@@ -60,16 +55,9 @@ const HippaContract: React.FC = () => {
     },
   })
   const router = useRouter()
-  // async function getUserDetails(){
-  //   const id = getValues('facilityEmail');
-  //   const {data, errors} = await client.queries.getUser({userId: id})
-  //   return {data, errors};
-  // }
 
   const onSubmit = async (data: IFormInput) => {
     setLoading(true)
-    // const user = await getUserDetails();
-
     console.log('final data', data)
     try {
       if(user){
@@ -78,7 +66,6 @@ const HippaContract: React.FC = () => {
         userId: user?.userId,
         id: user?.userId
       });
-      console.log(user, res);
       navigateTo('')
     }
     } catch (error) {
@@ -88,26 +75,6 @@ const HippaContract: React.FC = () => {
     }
   }
 
-  // useEffect(() => {
-  //   if (!loadingUser && !user){
-  //     navigateTo("/auth/sign-in")
-  //   }
-  // }, [user, loadingUser]);
-
-  // if (loadingUser || !user) {
-  //   return (
-  //     <Box
-  //       sx={{
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         height: "70vh",
-  //       }}
-  //     >
-  //       <CircularProgress size={69} />
-  //     </Box>
-  //   );
-  // }
   return (
     <Box
       component="form"

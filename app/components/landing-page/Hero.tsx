@@ -1,5 +1,6 @@
 "use client";
-import * as React from "react";
+import React, {useState} from "react";
+import AWS from 'aws-sdk';
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -7,22 +8,35 @@ import Typography from "@mui/material/Typography";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { generateClient } from 'aws-amplify/data';
-import axios from "axios";
-import { QueryClient, useMutation } from "@tanstack/react-query";
-import { registerForm } from "@/app/services/form-service";
-
-import { toast } from "react-toastify";
 import FormCheck from "../form/FormCheck";
-import { CircularProgress } from "@mui/material";
 import { useTranslations } from "next-intl";
 import useAuthUser from "@/app/hooks/useAuthUser";
-import { Schema } from "@/amplify/data/resource";
 import useNavigateWithLocale from "@/app/hooks/useNavigateLocale";
+import useClient from "@/app/hooks/useClient";
+import { IHeroFormPayload } from "@/app/interfaces/form-interfaces";
 
+const ses = new AWS.SES({ region: 'ap-south-1' });
+const sendEmail = async (source: any, recipient: any, body: string, sub: string) => {
+  const params = {
+    Destination: {
+      ToAddresses: recipient, // Replace with your recipient
+    },
+    Message: {
+      Body: {
+        Text: { Data: body || "Hello from Amplify and SES!" },
+      },
+      Subject: { Data: sub || "Test Email" },
+    },
+    Source: source, // Replace with your verified sender email address
+  };
 
-const client = generateClient<Schema>();
-
+  try {
+    const result = await ses.sendEmail(params).promise();
+    console.log("Email sent successfully:", result);
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+};
 const schema = z.object({
   firstName: z.string(),
   lastName: z.string(),
@@ -33,28 +47,7 @@ const schema = z.object({
   images: z.boolean(),
 });
 
-interface IFormInput {
-  firstName: string
-  lastName: string
-  senderEmail: string
-  receiverEmail: string
-  message: string;
-  consent: boolean
-  images: boolean
-
-}
-
-
-const scrollToSection = (id: any) => {
-  const element = document.getElementById(id);
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
-  }
-};
-
 export default function Hero() {
-  const [loading, setLoading] = React.useState(false)
-
   const {
     handleSubmit,
     register,
@@ -75,73 +68,30 @@ export default function Hero() {
     },
   });
   const t = useTranslations("Index");
-  const { user } = useAuthUser()
+
+  const {user} = useAuthUser()
+  const [loading, setLoading] = useState<boolean>();
   const navigateTo = useNavigateWithLocale()
+  const { client } = useClient();
 
-
-
-  // const { mutate: onSubmit, isPending } = useMutation({
-  //   mutationFn: registerForm,
-  //   onSuccess: (data) => {
-  //     toast.success("Success");
-  //     reset();
-  //   },
-  //   onError: () => {
-  //     toast.error("Something went wrong!");
-  //   },
-  // });
-
-  // const checkUserId = async () => {
-  //   if (user) {
-  //     try {
-  //       const { data, errors } = await client.queries.getUser({userId: user?.email});
-  //       if (
-  //         !data
-  //       ) {
-  //         navigateTo("/hippa-contract");
-  //       } else {
-  //         console.log("ID present");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching record:", errors);
-  //     }
-  //   } else {
-  //     console.log("No user found");
-  //   }
-  // };
-
-  // React.useLayoutEffect(() => {
-  //   checkUserId();
-  // }, [user]);
-
-  const onSubmit = async (data: IFormInput) => {
-    if(!user?.userId){
-      navigateTo('/auth/sign-in');
-      return;
+  
+  const onSubmit = async (data: IHeroFormPayload) => {
+    setLoading(true);
+    const res = await client.models.IndexForm.create({
+      ...data
+    });
+    if(res){
+      sendEmail(data?.receiverEmail, data?.senderEmail, data?.message, 'IndexForm');
+      console.log(res);
     }
-    setLoading(true)
-    // const user = await getUserDetails();
-
-    console.log('final data', data)
-    try {
-      if (user) {
-        const res = await client.models.IndexForm.create({
-          ...data,
-        });
-        console.log(user, res);
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error)
-    } finally {
-      setLoading(false)
-    }
+    
   }
 
-
   return (
-    <form style={{ width: "100%" }} noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit(onSubmit)}>
+    <form style={{ width: "100%" }}  
+    noValidate
+    autoComplete="off"
+    onSubmit={handleSubmit(onSubmit)} >
       <Stack
         spacing={2}
         useFlexGap
@@ -295,7 +245,7 @@ export default function Hero() {
               name={`consent`}
               control={control}
               label={t("heroCheckBox1")}
-            // error={""}
+              // error={""}
             />
           </div>
           <div style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -303,7 +253,7 @@ export default function Hero() {
               name={`images`}
               control={control}
               label={t("heroCheckBox2")}
-            // error={""}
+              // error={""}
             />
           </div>
         </Stack>
@@ -311,10 +261,10 @@ export default function Hero() {
           variant="contained"
           color="primary"
           sx={{ alignSelf: "flex-start", marginTop: 3, width: "10vw" }}
-          disabled={loading}
+          // disabled={isPending}
           type="submit"
           // onClick={() => {
-          //   user ? handleSubmit(onSubmit as any) : "";
+          //   user ? handleSubmit(onSubmit as any) : "/api/auth/login";
           // }}
         >
           {loading ? t("heroSendingButton") : t("heroSendButton")}

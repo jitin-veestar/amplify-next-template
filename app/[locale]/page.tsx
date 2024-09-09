@@ -17,15 +17,6 @@ import useNavigateWithLocale from "../hooks/useNavigateLocale";
 
 Amplify.configure(output);
 
-// const client = generateClient<Schema>({
-//   fetch: async (uri, options) => {
-//     const token = (await Auth.currentSession()).getIdToken().getJwtToken();
-//     options.headers.Authorization = `Bearer ${token}`;
-//     return fetch(uri, options);
-//   },
-// });
-
-
 export default function Home() {
   const t = useTranslations("Index");
   const navigateTo = useNavigateWithLocale()
@@ -43,7 +34,6 @@ export default function Home() {
           authToken: session?.tokens?.idToken?.toString()
         });
         const hippaContract = await client.models.HippaContract.get({id: userId});
-        console.log("sadfkjdfg", hippaContract);
         if(!hippaContract?.data){
           navigateTo("/hippa-contract");
         }

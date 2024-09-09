@@ -23,7 +23,7 @@ import { Amplify } from 'aws-amplify'
 import { authConfig } from '@/app/amplify-cognito-config'
 import output from '../../../../amplify_outputs.json'
 
-Amplify.configure(output);
+// Amplify.configure(output);
 
 export default function SignIn() {
   const navigateTo = useNavigateWithLocale()
@@ -35,13 +35,16 @@ export default function SignIn() {
     const data = new FormData(event.currentTarget)
     const { success, message, redirectLink } = await handleSignIn('', data)
     if (success && redirectLink) {
-      navigateTo('/hippa-contract')
+      console.log(success, message);
+      navigateTo(redirectLink);
+    // navigateTo('/hippa-contract')
     } else if (!success && redirectLink) {
       toast.info(message)
       navigateTo(redirectLink)
     } else {
       toast.error(message)
     }
+    console.log(success, message);
   }
 
   return (
