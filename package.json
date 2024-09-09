@@ -24,6 +24,7 @@
     "@tanstack/react-query": "^5.51.21",
     "aws-amplify": "^6.4.0",
     "aws-cdk-lib": "^2.151.0",
+    "aws-sdk": "^2.1680.0",
     "axios": "^1.7.3",
     "browser-image-compression": "^2.0.2",
     "constructs": "^10.3.0",
