@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData, defineFunction } from "@aws-amplify/backend";
+import {sendLinkEmail} from '../functions/send-link-email/resource'
 
 // const getHippaContractByUserId = defineFunction({
 //   entry: './user-handler/handler.ts'
@@ -15,6 +16,16 @@ const schema = a.schema({
         images: a.boolean(),
       })
       .authorization(allow => [allow.owner()]),
+
+      sendLinkEmail: a.query().arguments({
+        hrefPath:a.string(),
+         firstName: a.string(),
+          lastName: a.string(),
+           senderEmail: a.string(),
+           receiverEmail: a.string(),
+           message: a.string()
+      }).returns(a.string()).authorization(allow => [allow.authenticated()])
+      .handler(a.handler.function(sendLinkEmail)),
 
       HippaContract: a
       .model({

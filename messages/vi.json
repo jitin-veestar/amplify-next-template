@@ -263,5 +263,9 @@
     "hippaContractAcceptHippaRequired": "Bạn phải chấp nhận hợp đồng HIPAA",
     "hippaContractSubmitButton": "Gửi đi",
     "hippaContractHippaContract": "hợp đồng HIPAA"
+  },
+
+  "NotFoundPage": {
+    "title": "Không Tìm Thấy Trang"
   }
 }

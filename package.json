@@ -11,6 +11,7 @@
   "dependencies": {
     "@aws-amplify/ui-react": "^6.1.13",
     "@aws-appsync/utils": "^1.9.0",
+    "@aws-sdk/client-ses": "^3.651.1",
     "@date-io/date-fns": "^3.0.0",
     "@emotion/cache": "^11.13.1",
     "@emotion/react": "^11.13.0",
@@ -22,9 +23,8 @@
     "@mui/material-nextjs": "^5.16.6",
     "@mui/x-date-pickers": "^7.11.1",
     "@tanstack/react-query": "^5.51.21",
-    "aws-amplify": "^6.4.0",
-    "aws-cdk-lib": "^2.151.0",
-    "aws-sdk": "^2.1680.0",
+    "aws-amplify": "^6.6.0",
+    "aws-cdk-lib": "^2.158.0",
     "axios": "^1.7.3",
     "browser-image-compression": "^2.0.2",
     "constructs": "^10.3.0",
@@ -44,7 +44,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^1.0.4",
+    "@aws-amplify/backend": "^1.2.1",
     "@aws-amplify/backend-cli": "^1.1.1",
     "@types/node": "^20",
     "@types/react": "^18",

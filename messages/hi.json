@@ -263,5 +263,8 @@
     "hippaContractAcceptHippaRequired": "आपको HIPAA अनुबंध स्वीकार करना होगा",
     "hippaContractSubmitButton": "जमा करें",
     "hippaContractHippaContract": "HIPAA अनुबंध"
+  },
+  "NotFoundPage": {
+    "title": "पृष्ठ नहीं मिला"
   }
 }
