@@ -7,8 +7,6 @@ const sesClient = new ses.SESClient({region: 'api-south-1'});
 
 export const handler: Handler = async (event, context) => {
   // your function code goes here
-  const senderEmail = 'jitin.rathi@veestarsolutions.in';
-  const recipientEmail = 'jitinrathi910949@gmail.com';
 
   try {
     const {hrefPath, firstName='', lastName='', senderEmail ,receiverEmail, message} = event.argument;

@@ -19,9 +19,6 @@ import {
 } from '@mui/material'
 
 import useNavigateWithLocale from '@/app/hooks/useNavigateLocale'
-import { Amplify } from 'aws-amplify'
-import { authConfig } from '@/app/amplify-cognito-config'
-import output from '../../../../amplify_outputs.json'
 
 // Amplify.configure(output);
 
