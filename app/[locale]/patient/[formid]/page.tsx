@@ -13,7 +13,12 @@ import {
 } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
-import { useMemo, useState } from "react";
+import { generateClient } from "aws-amplify/api";
+import { type Schema } from '@/amplify/data/resource';
+import { Amplify, type ResourcesConfig } from "aws-amplify";
+import output from '../../../../amplify_outputs.json';
+
+import { useEffect, useMemo, useState } from "react";
 import HealthAssessment from "./stepper/HealthAssessment";
 import MedicalHistoryDetails from "./stepper/MedicalHistoryDetails";
 import TestsMedications from "./stepper/TestsMedications";
@@ -31,6 +36,7 @@ import { useAppContext } from "@/app/hooks/useAppContext";
 import ConsentDialog from "@/app/components/landing-page/ConsentDialog";
 import Success from "./component/Success";
 import { useTranslations } from "next-intl";
+import { isEmpty } from "lodash";
 
 const getCurrentSchema = (currentStep: number) => {
   switch (currentStep) {
@@ -47,6 +53,8 @@ const getCurrentSchema = (currentStep: number) => {
   }
 };
 
+Amplify.configure(output);
+
 export default function Form1({
   params,
   searchParams,
@@ -59,7 +67,11 @@ export default function Form1({
   } = useAppContext();
 
   const [showConcentDialog, setShowConcentDialog] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [formDetails, setFormDetails] = useState<any>(null);
   const t = useTranslations("Index");
+
+  const client = generateClient<Schema>({});
 
   const onSubmit = () => {
     // if (watchAll?.images?.length < 2 && formDetails.images === true) {
@@ -85,16 +97,38 @@ export default function Form1({
       toast.error("Something went wrong!");
     },
   });
+
+  const getFormDetails = async () => {
+    setLoading(true);
+    try {
+    const formD = await client.models.IndexForm.get({id: params.formid});
+    console.log("asdklflaksjdg", formD.data)
+      setFormDetails(formD?.data);
+    } catch(err) {
+      console.log({err});
+
+    } finally {
+      setLoading(false);
+    }
+
+  }
+
+
+  useEffect(() => {
+    getFormDetails();
+  }, [params.formid])
+  
+
   const handleButtonClick = () => {
     setIsDown(false);
     hookForm.handleSubmit(handleSubmitForm)();
   };
 
-  const {
-    isLoading,
-    data: formDetails,
-    isError,
-  } = useGetFormDetails({ id: params.formid });
+  // const {
+  //   isLoading,
+  //   data: formDetails,
+  //   isError,
+  // } = useGetFormDetails({ id: params.formid });
 
   const getCurrentForm = (currentStep: number) => {
     switch (currentStep) {
@@ -164,7 +198,7 @@ export default function Form1({
     );
   }
 
-  if (isError) {
+  if (isEmpty(formDetails) && !isLoading) {
     return (
       <Box sx={{ p: 2 }}>
         <Alert severity="error">

@@ -15,7 +15,8 @@ const schema = a.schema({
         consent: a.boolean(),
         images: a.boolean(),
       })
-      .authorization(allow => [allow.owner()]),
+      .authorization(allow => [allow.guest().to(['get']) ,allow.owner()]),
+
 
       sendLinkEmail: a.query().arguments({
         hrefPath:a.string(),
