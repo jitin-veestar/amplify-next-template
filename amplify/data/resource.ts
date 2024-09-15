@@ -1,4 +1,4 @@
-import { type ClientSchema, a, defineData, defineFunction } from "@aws-amplify/backend";
+import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 import {sendLinkEmail} from '../functions/send-link-email/resource'
 
 // const getHippaContractByUserId = defineFunction({
