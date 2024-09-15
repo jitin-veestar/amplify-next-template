@@ -1,11 +1,10 @@
-import type { Handler } from 'aws-lambda';
 import {SendEmailCommand, SESClient, } from '@aws-sdk/client-ses';
 import { registerFormTemp } from './emailTemplate';
 
 const sesClient = new SESClient({region: 'ap-south-1'});
 
 
-export const handler: Handler = async (event, context) => {
+export const handler = async (event, context) => {
   // your function code goes here
 
   try {
