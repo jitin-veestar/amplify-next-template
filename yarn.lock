@@ -8049,6 +8049,7 @@ __metadata:
     browser-image-compression: ^2.0.2
     constructs: ^10.3.0
     date-fns: ^3.6.0
+    esbuild: latest
     lodash: ^4.17.21
     next: 14.1.1
     next-intl: ^3.17.2
@@ -9310,7 +9311,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:~0.23.0":
+"esbuild@npm:latest, esbuild@npm:~0.23.0":
   version: 0.23.1
   resolution: "esbuild@npm:0.23.1"
   dependencies:

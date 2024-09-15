@@ -24,8 +24,7 @@ const schema = a.schema({
            senderEmail: a.string(),
            receiverEmail: a.string(),
            message: a.string()
-      }).returns(a.string()).authorization(allow => [allow.authenticated()])
-      .handler(a.handler.function(sendLinkEmail)),
+      }).returns(a.string()).handler(a.handler.function(sendLinkEmail)),
 
       HippaContract: a
       .model({
