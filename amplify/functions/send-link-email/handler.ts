@@ -1,8 +1,8 @@
 import type { Handler } from 'aws-lambda';
-import * as ses from '@aws-sdk/client-ses';
+import {SendEmailCommand, SESClient, } from '@aws-sdk/client-ses';
 import { registerFormTemp } from './emailTemplate';
 
-const sesClient = new ses.SESClient({region: 'api-south-1'});
+const sesClient = new SESClient({region: 'ap-south-1'});
 
 
 export const handler: Handler = async (event, context) => {
@@ -14,7 +14,7 @@ export const handler: Handler = async (event, context) => {
 
     const htmlBody = registerFormTemp(hrefPath, firstName, lastName);
 
-    const params = new ses.SendEmailCommand({
+    const params = new SendEmailCommand({
       Destination: {
         ToAddresses: [receiverEmail],
       },
