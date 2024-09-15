@@ -17,10 +17,13 @@ import {
   Button,
   TextField,
 } from '@mui/material'
+import { Amplify, type ResourcesConfig } from "aws-amplify";
+import output from '../../../../amplify_outputs.json';
+
 
 import useNavigateWithLocale from '@/app/hooks/useNavigateLocale'
 
-// Amplify.configure(output);
+Amplify.configure(output);
 
 export default function SignIn() {
   const navigateTo = useNavigateWithLocale()

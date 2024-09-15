@@ -6,9 +6,10 @@ const sesClient = new SESClient({region: 'ap-south-1'});
 
 export const handler = async (event, context) => {
   // your function code goes here
+  const senderEmail = 'jitinrathi910949@gmail.com';
 
   try {
-    const {hrefPath, firstName='', lastName='', senderEmail ,receiverEmail, message} = event.argument;
+    const {hrefPath='', firstName='', lastName='', receiverEmail, message} = event?.arguments || {};
 
 
     const htmlBody = registerFormTemp(hrefPath, firstName, lastName);
