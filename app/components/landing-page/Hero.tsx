@@ -1,6 +1,5 @@
 "use client";
-import React, {useState} from "react";
-import AWS from 'aws-sdk';
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -15,28 +14,6 @@ import useNavigateWithLocale from "@/app/hooks/useNavigateLocale";
 import useClient from "@/app/hooks/useClient";
 import { IHeroFormPayload } from "@/app/interfaces/form-interfaces";
 
-const ses = new AWS.SES({ region: 'ap-south-1' });
-const sendEmail = async (source: any, recipient: any, body: string, sub: string) => {
-  const params = {
-    Destination: {
-      ToAddresses: recipient, // Replace with your recipient
-    },
-    Message: {
-      Body: {
-        Text: { Data: body || "Hello from Amplify and SES!" },
-      },
-      Subject: { Data: sub || "Test Email" },
-    },
-    Source: source, // Replace with your verified sender email address
-  };
-
-  try {
-    const result = await ses.sendEmail(params).promise();
-    console.log("Email sent successfully:", result);
-  } catch (error) {
-    console.error("Error sending email:", error);
-  }
-};
 const schema = z.object({
   firstName: z.string(),
   lastName: z.string(),
@@ -69,29 +46,63 @@ export default function Hero() {
   });
   const t = useTranslations("Index");
 
-  const {user} = useAuthUser()
+  const { user } = useAuthUser()
   const [loading, setLoading] = useState<boolean>();
   const navigateTo = useNavigateWithLocale()
   const { client } = useClient();
 
-  
+
   const onSubmit = async (data: IHeroFormPayload) => {
-    setLoading(true);
-    const res = await client.models.IndexForm.create({
-      ...data
-    });
-    if(res){
-      sendEmail(data?.receiverEmail, data?.senderEmail, data?.message, 'IndexForm');
-      console.log(res);
+    // setLoading(true);
+    // const res = await client.models.IndexForm.create({
+    //   ...data
+    // });
+    // if(res){
+    //   sendEmail(data?.receiverEmail, data?.senderEmail, data?.message, 'IndexForm');
+    //   console.log(res);
+    // }
+    if (!user?.userId) {
+      navigateTo('/auth/sign-in');
+      return;
     }
-    
+    setLoading(true)
+    // const user = await getUserDetails();
+
+    console.log('final data', data)
+    try {
+      if (user) {
+        const res = await client.models.IndexForm.create({
+          ...data,
+        });
+        if (res?.data) {
+          const response = res?.data;
+
+          const hrefPath = `${window?.location?.href}/patient/${response.id}`;
+
+          await client.queries.sendLinkEmail({
+            hrefPath,
+            firstName: '',
+            lastName: '',
+            senderEmail: response.senderEmail,
+            receiverEmail: response.receiverEmail,
+            message: response.message
+          });
+        }
+        console.log("asdfkjdahfjkgdfg", { user, res });
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+    } finally {
+      setLoading(false)
+    }
+
   }
 
   return (
-    <form style={{ width: "100%" }}  
-    noValidate
-    autoComplete="off"
-    onSubmit={handleSubmit(onSubmit)} >
+    <form style={{ width: "100%" }}
+      noValidate
+      autoComplete="off"
+      onSubmit={handleSubmit(onSubmit)} >
       <Stack
         spacing={2}
         useFlexGap
@@ -245,7 +256,7 @@ export default function Hero() {
               name={`consent`}
               control={control}
               label={t("heroCheckBox1")}
-              // error={""}
+            // error={""}
             />
           </div>
           <div style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -253,7 +264,7 @@ export default function Hero() {
               name={`images`}
               control={control}
               label={t("heroCheckBox2")}
-              // error={""}
+            // error={""}
             />
           </div>
         </Stack>
@@ -263,9 +274,9 @@ export default function Hero() {
           sx={{ alignSelf: "flex-start", marginTop: 3, width: "10vw" }}
           // disabled={isPending}
           type="submit"
-          // onClick={() => {
-          //   user ? handleSubmit(onSubmit as any) : "/api/auth/login";
-          // }}
+        // onClick={() => {
+        //   user ? handleSubmit(onSubmit as any) : "/api/auth/login";
+        // }}
         >
           {loading ? t("heroSendingButton") : t("heroSendButton")}
         </Button>

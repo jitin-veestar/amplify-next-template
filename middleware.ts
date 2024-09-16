@@ -1,21 +1,16 @@
 import createMiddleware from "next-intl/middleware";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-// export { default } from "next-auth/middleware";
-// import {NextAuthMiddlewareOptions} from "next-auth/middleware";
-
-// export default createMiddleware({
-//   // A list of all locales that are supported
-//   locales: ["en", "es", "ar", "hi", "zh", "vi"],
-
-//   // Used when no locale matches
-//   defaultLocale: "en",
-// });
 
 const intlMiddleware = createMiddleware({
   locales: ["en", "es", "ar", "hi", "zh", "vi"],
   defaultLocale: "en"
 });
+
+export function onError(error: Error) {
+  console.error('Error in middleware', error);
+  return NextResponse.redirect('/500'); // Redirect to a custom error page if needed
+}
 
 
 
@@ -35,39 +30,20 @@ export const config = {
 };
 
 export async function middleware(request: NextRequest) {
-  const intlResponse = await intlMiddleware(request);
-  if (intlResponse) return intlResponse;
+  try {
+    // Apply next-intl middleware for locale handling
+    const intlResponse = await intlMiddleware(request);
+    if (intlResponse) return intlResponse;
 
-  // Apply next-auth middleware
-  // const authResponse = await nextAuthMiddleware(request);
-  // if (authResponse) return authResponse;
+    // Apply additional middlewares, such as next-auth if needed
+    // const authResponse = await nextAuthMiddleware(request);
+    // if (authResponse) return authResponse;
 
-  const response = NextResponse.next();
-
-
-  console.log({request})
-
-  const isOnDashboard = request.nextUrl.pathname.startsWith("/vi");
-  const isOnAdminArea = request.nextUrl.pathname.startsWith("/vi/admins");
-
-  console.log('isOnDashboard:', isOnDashboard);
-  console.log('isOnAdminArea:', isOnAdminArea);
-
-  // if (isOnDashboard) {
-  //   if (!user) {
-  //     console.log('Redirecting to sign-in...');
-  //     return NextResponse.redirect(new URL("/vi/auth/sign-in", request.nextUrl));
-  //   }
-  //   if (isOnAdminArea && !user.isAdmin) {
-  //     console.log('Redirecting to dashboard...');
-  //     return NextResponse.redirect(new URL("/vi", request.nextUrl));
-  //   }
-  //   return response;
-  // } else if (user) {
-  //   console.log('Redirecting to dashboard...');
-  //   return NextResponse.redirect(new URL("/"));
-  //   // return NextResponse.redirect(new URL("/en", request.nextUrl));
-  // }
-
-  return response;
+    // Continue with the next response
+    return NextResponse.next();
+    
+  } catch (error: any) {
+    console.error('Error in middleware:', error);
+    return onError(error); // Handle error, redirect to 500
+  }
 }

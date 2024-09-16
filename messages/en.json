@@ -333,5 +333,8 @@
     "consentCancel": "Cancel",
     "consentContinue": "Continue",
     "consentPleaseFillValue": "Please fill the value"
+  },
+  "NotFoundPage": {
+    "title": "Page Not Found"
   }
 }

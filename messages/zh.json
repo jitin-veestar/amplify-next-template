@@ -263,5 +263,9 @@
     "hippaContractAcceptHippaRequired": "您必须接受HIPAA合同",
     "hippaContractSubmitButton": "提交",
     "hippaContractHippaContract": "HIPAA合同"
+  },
+
+  "NotFoundPage": {
+    "title": "找不到页面"
   }
 }
