@@ -1,5 +1,5 @@
-import { Avatar, Chip } from "@mui/material";
-import Image from "next/image";
+import Avatar from '@mui/material/Avatar';
+import Chip from '@mui/material/Chip';
 import React from "react";
 import Logo from "../../../public/Images/logo.jpeg";
 import Link from "next/link";

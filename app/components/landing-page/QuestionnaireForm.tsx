@@ -12,7 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import { registerForm } from "@/app/services/form-service";
 import { toast } from "react-toastify";
 import FormCheck from "../form/FormCheck";
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 
 const schema = z.object({
   senderEmail: z.string().email(),

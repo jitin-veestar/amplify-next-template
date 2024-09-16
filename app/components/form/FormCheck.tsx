@@ -5,7 +5,9 @@ import {
   Merge,
   FieldErrorsImpl,
 } from "react-hook-form";
-import { Checkbox, FormControlLabel, FormHelperText } from "@mui/material";
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
 
 interface IFormCheck {
   name: string;

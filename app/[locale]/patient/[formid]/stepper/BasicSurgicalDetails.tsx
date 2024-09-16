@@ -1,10 +1,9 @@
-import {
-  Grid,
-  TextField,
-  FormControl,
-  InputAdornment,
-  MenuItem,
-} from "@mui/material";
+
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import InputAdornment from '@mui/material/InputAdornment';
+import MenuItem from '@mui/material/MenuItem';
 import React, { forwardRef, useEffect, useState } from "react";
 import { FormBoxWrapper } from "../CustomFormWrapper";
 import Heading from "@/app/components/Heading";

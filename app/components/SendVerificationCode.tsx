@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
-import { Button, Box } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import ArrowRightIcon from "@mui/icons-material/ArrowForward";
 import { handleSendEmailVerificationCode } from "../lib/cognitoActions";
 import { toast } from "react-toastify";

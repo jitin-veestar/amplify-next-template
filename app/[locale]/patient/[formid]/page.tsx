@@ -1,16 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Alert,
-  Backdrop,
-  Box,
-  Button,
-  Card,
-  CircularProgress,
-  Grid,
-  Typography,
-} from "@mui/material";
+import Alert from '@mui/material/Alert';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { generateClient } from "aws-amplify/api";

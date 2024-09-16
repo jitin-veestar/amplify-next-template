@@ -1,6 +1,7 @@
 "use client";
 import Hero from "../components/landing-page/Hero";
-import { Box, Container } from "@mui/material";
+import Box from "@mui/material/Box";
+import Container from '@mui/material/Container';
 import Features from "../components/landing-page/Features";
 import AppHeader from "../components/layout/AppHeader";
 import AppFooter from "../components/layout/AppFooter";

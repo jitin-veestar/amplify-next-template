@@ -3,7 +3,8 @@
 
 import React from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import { Box, CssBaseline } from "@mui/material";
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from "@mui/material/Box";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ThemeRegistry from "../ThemeRegistry";
 import { ToastContainer } from "react-toastify";

@@ -6,7 +6,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Box, Stack, Typography } from "@mui/material";
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+
 import SignatureCanvas from "react-signature-canvas";
 import { format } from "date-fns";
 import { useTranslations } from "next-intl";

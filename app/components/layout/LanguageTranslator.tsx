@@ -1,6 +1,9 @@
-import { Box, FormControl, MenuItem, Select } from "@mui/material";
 import React, { ChangeEvent } from "react";
 import { useRouter, usePathname, useParams } from "next/navigation";
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 const languages = [
   { code: "en", label: "English" },

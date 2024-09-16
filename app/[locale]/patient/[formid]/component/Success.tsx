@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Card, Typography } from "@mui/material";
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
 import { CheckCircleOutline } from "@mui/icons-material";
 
 const Success: React.FC = () => {

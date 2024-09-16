@@ -4,7 +4,14 @@ import * as React from "react";
 import ExclamationCircleIcon from "@mui/icons-material/ErrorOutline";
 import Link from "next/link";
 import AppLogo from "@/app/components/layout/AppLogo";
-import { Card, CardContent, CardHeader, Button, TextField, Grid, Box, Typography } from "@mui/material";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { handleSignUp } from "@/app/lib/cognitoActions";
 import { redirect, useParams, useRouter } from "next/navigation";
 

@@ -2,7 +2,9 @@
 // RootLayout.tsx
 import useAuthUser from "@/app/hooks/useAuthUser";
 import useNavigateWithLocale from "@/app/hooks/useNavigateLocale";
-import { Box, Card, Container, Stack, Typography } from "@mui/material";
+import Container from "@mui/material/Container";
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 import Link from "next/link";
 import React, { useEffect } from "react";
 

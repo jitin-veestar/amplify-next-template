@@ -7,7 +7,8 @@ import TeethPlaceholder from "../../../../../public/Images/teethPlaceholder.jpeg
 import FacePlaceholder from "../../../../../public/Images/facePlaceholder.jpeg";
 import ThroatPlaceholder from "../../../../../public/Images/throatPlaceholder.jpeg";
 import AskLogo from "../../../../../public/Images/logo.jpeg";
-import { Box, Typography } from "@mui/material";
+import Typography from '@mui/material/Typography';
+
 
 // Assuming the placeholder is imported directly, adjust the path as necessary
 // import placeholderImg from '../public/placeholder.jpg'; // Make sure the path matches your project structure

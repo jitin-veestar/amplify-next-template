@@ -4,16 +4,14 @@ import HeaderContainerWrapper from "@/app/components/layout/HeaderContainerWrapp
 import LanguageTranslator from "@/app/components/layout/LanguageTranslator";
 import { useAppContext } from "@/app/hooks/useAppContext";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
-import {
-  Box,
-  Step,
-  StepLabel,
-  Stepper,
-  Hidden,
-  FormControl,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import Box from '@mui/material/Box';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Stepper from '@mui/material/Stepper';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
 import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect } from "react";

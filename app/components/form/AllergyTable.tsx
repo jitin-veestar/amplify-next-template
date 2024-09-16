@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import {
-  TextField,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  IconButton,
-  styled,
-  tableCellClasses,
-  Typography,
-  Grid,
-} from "@mui/material";
+import TextField from '@mui/material/TextField';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import { styled } from '@mui/material/styles';
+import { tableCellClasses } from '@mui/material/TableCell';
+
 import { Add, Delete } from "@mui/icons-material";
 import FormCheck from "./FormCheck";
 import { useTranslations } from "next-intl";

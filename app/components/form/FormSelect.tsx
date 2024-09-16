@@ -5,11 +5,10 @@ import {
   Merge,
   FieldErrorsImpl,
 } from "react-hook-form";
-import {
-  FormHelperText,
-  MenuItem,
-  TextField,
-} from "@mui/material"; 
+import FormHelperText from '@mui/material/FormHelperText';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+
 
 interface IFormSelect {
   name: string;

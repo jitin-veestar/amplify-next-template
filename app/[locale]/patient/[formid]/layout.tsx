@@ -1,5 +1,6 @@
 "use client";
-import { Box, Container } from "@mui/material";
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import React, { useEffect } from "react";
 import StepperHeader from "./component/StepperHeader";
 

@@ -98,7 +98,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 export default function HippaDialog({
   open,
