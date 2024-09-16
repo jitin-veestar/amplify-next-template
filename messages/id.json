@@ -263,5 +263,9 @@
     "hippaContractAcceptHippaRequired": "Anda harus menerima kontrak HIPAA",
     "hippaContractSubmitButton": "Kirim",
     "hippaContractHippaContract": "kontrak HIPAA"
+  },
+
+  "NotFoundPage": {
+    "title": "Halaman Tidak Ditemukan"
   }
 }

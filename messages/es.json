@@ -263,5 +263,8 @@
     "hippaContractAcceptHippaRequired": "Debes aceptar el contrato de HIPAA",
     "hippaContractSubmitButton": "Enviar",
     "hippaContractHippaContract": "contrato de HIPAA"
+  },
+  "NotFoundPage": {
+    "title": "Página No Encontrada"
   }
 }

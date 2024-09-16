@@ -12,7 +12,7 @@
     "stepper3": "الاختبارات والأدوية",
     "stepper4": "تقييم الصحة",
 
-    "heroTitle": "إرسال استبيان فحص عبر البريد الإلكتروني، استلام ملف PDF ملخص متوافق مع HIPAA في صفحة واحدة",
+    "heroTitle": "إرسال استبيان فحص عبر zالبريد الإلكتروني، استلام ملف PDF ملخص متوافق مع HIPAA في صفحة واحدة",
     "heroSubTitleUnlimited": "غير محدود ",
     "heroSubTitleDollar": "$3/اليوم",
     "heroSubTitleFree": "مجانا",
@@ -263,5 +263,8 @@
     "hippaContractAcceptHippaRequired": "يجب عليك قبول عقد HIPAA",
     "hippaContractSubmitButton": "إرسال",
     "hippaContractHippaContract": "عقد HIPAA"
+  },
+  "NotFoundPage": {
+    "title":  "الصفحة غير موجودة"
   }
 }
