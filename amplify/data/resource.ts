@@ -17,7 +17,6 @@ const schema = a.schema({
       })
       .authorization(allow => [allow.guest().to(['get']) ,allow.owner()]),
 
-
       sendLinkEmail: a.query().arguments({
         hrefPath:a.string(),
          firstName: a.string(),
@@ -38,6 +37,14 @@ const schema = a.schema({
         acceptHippa: a.boolean(),
       })
       .authorization((allow) => [allow.owner()]),
+
+      generateReport: a.query().arguments({
+        body: a.json(),
+        senderEmail: a.string()
+      }).returns(a.string()).handler(a.handler.function(sendLinkEmail)).authorization(allow => [allow.authenticated()]),
+
+
+
 
       // getUser: a.query().arguments({userId: a.string()})
       // .returns(a.ref('HippaContract'))
