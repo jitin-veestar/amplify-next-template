@@ -13,9 +13,8 @@ export const handler = async (event, context) => {
 
   try {
     const {body, senderEmail} = event?.arguments || {};
-
     const pdf = await CreateForm1(body);
-    const buffer = Buffer.from(pdf as any);
+    // const buffer = Buffer.from(pdf as any);
     const htmlBody = deliverPdfTemplate();
 
     const mailOptions = {
@@ -23,30 +22,38 @@ export const handler = async (event, context) => {
       to: senderEmail,
       subject: "Submission form from ASK medical",
       html: htmlBody,
-      attachments: [
-        {
-          filename: `${body?.patient_information?.patient_name}.pdf`,
-          content: buffer,
-          contentType: mime.getType('.pdf') || 'application/pdf',
-        }
-      ]
+      // attachments: [
+      //   {
+      //     filename: `${body?.patient_information?.patient_name}.pdf`,
+      //     content: buffer,
+      //     contentType: mime.getType('.pdf') || 'application/pdf',
+      //   }
+      // ]
     };
 
-    const mailComposer = new MailComposer(mailOptions);
-    const message = await new Promise((resolve, reject) => {
-      mailComposer.compile().build((err, message) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(message);
-        }
-      });
-    });
+    const pdfAttachment = {
+      filename:  `${body?.patient_information?.patient_name}.pdf`,
+      content: pdf
+    }
+
+    const rawEmail = await createRawEmail(fromEmail, senderEmail, mailOptions.subject, mailOptions.html, pdfAttachment);
+
+    // const mailComposer = new MailComposer(mailOptions);
+    // const message = await new Promise((resolve, reject) => {
+    //   mailComposer.compile().build((err, message) => {
+    //     if (err) {
+    //       reject(err);
+    //     } else {
+    //       resolve(message);
+    //     }
+    //   });
+    // });
 
     const command = new SendRawEmailCommand({
       RawMessage: {
-        Data: message as Uint8Array,
+        Data: Buffer.from(rawEmail)
       },
+      Source: fromEmail
     });
 
 
@@ -60,5 +67,26 @@ export const handler = async (event, context) => {
     }
     throw caught;
   }
-
 };
+
+async function createRawEmail(sender, recipient, subject, bodyText, attachment) {
+  const boundary = 'NextPart';
+  const header = `From: ${sender}\n` +
+      `To: ${recipient}\n` +
+      `Subject: ${subject}\n` +
+      'MIME-Version: 1.0\n' +
+      `Content-Type: multipart/mixed; boundary="${boundary}"\n\n`;
+
+  const body = 
+      `--${boundary}\n` +
+      'Content-Type: text/html; charset=us-ascii\n\n' +
+      `${bodyText}\n\n` +
+      `--${boundary}\n` +
+      'Content-Type: application/pdf;\n' +
+      `Content-Disposition: attachment; filename="${attachment.filename}"\n` +
+      'Content-Transfer-Encoding: base64\r\n\r\n' +
+      `${Buffer.from(await attachment.content).toString('base64')}\n\n` +
+      `--${boundary}--`;
+
+  return header + body;
+}

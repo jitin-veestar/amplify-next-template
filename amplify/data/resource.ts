@@ -1,5 +1,6 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 import {sendLinkEmail} from '../functions/send-link-email/resource'
+import {sendReportEmail} from '../functions/send-report-email/resource'
 
 // const getHippaContractByUserId = defineFunction({
 //   entry: './user-handler/handler.ts'
@@ -7,13 +8,14 @@ import {sendLinkEmail} from '../functions/send-link-email/resource'
 const schema = a.schema({
   IndexForm: a
       .model({
-        firstName: a.string(),
+        firstName: a.string().required(),
         lastName: a.string(),
-        senderEmail: a.string(),
-        receiverEmail: a.string(),
+        senderEmail: a.string().required(),
+        receiverEmail: a.string().required(),
         message: a.string(),
-        consent: a.boolean(),
-        images: a.boolean(),
+        consent: a.boolean().default(false),
+        images: a.boolean().default(false),
+        isFormSubmit: a.boolean().default(false),
       })
       .authorization(allow => [allow.guest().to(['get']) ,allow.owner()]),
 
@@ -40,23 +42,10 @@ const schema = a.schema({
 
       generateReport: a.query().arguments({
         body: a.json(),
-        senderEmail: a.string()
-      }).returns(a.string()).handler(a.handler.function(sendLinkEmail)).authorization(allow => [allow.authenticated()]),
-
-
-
-
-      // getUser: a.query().arguments({userId: a.string()})
-      // .returns(a.ref('HippaContract'))
-      // .authorization(allow => [allow.authenticated('userPools')])
-      // .handler(a.handler.custom({
-      //   dataSource: a.ref('HippaContract'),
-      //   entry: './user-handler/handler.ts'
-
-      // }))
-      // .handler(a.handler.function(getHippaContractByUserId))
+        senderEmail: a.string(),
+        formId: a.string().required(),
+      }).returns(a.string()).handler(a.handler.function(sendReportEmail)).authorization(allow => [allow.authenticated()]),
 });
-
 
 
 export type Schema = ClientSchema<typeof schema>;

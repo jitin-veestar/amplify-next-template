@@ -3,13 +3,18 @@ import * as iam from "aws-cdk-lib/aws-iam"
 import { auth } from './auth/resource.js';
 import { data } from './data/resource.js';
 import { sendLinkEmail } from './functions/send-link-email/resource';
+import { sendReportEmail } from './functions/send-report-email/resource';
+
 const backend = defineBackend({
   auth,
   data,
-  sendLinkEmail
+  sendLinkEmail,
+  sendReportEmail
 });
 
-const sendLinkEmailLambda = backend.sendLinkEmail.resources.lambda
+const sendLinkEmailLambda = backend.sendLinkEmail.resources.lambda;
+
+const sendReportEmailLambda = backend.sendReportEmail.resources.lambda; 
 
 
 const statement = new iam.PolicyStatement({
@@ -25,3 +30,4 @@ const statement = new iam.PolicyStatement({
 });
 
 sendLinkEmailLambda.addToRolePolicy(statement);
+sendReportEmailLambda.addToRolePolicy(statement);

@@ -29,8 +29,6 @@ import {
   testsAndMedicationSchema,
   healthAssessmentSchema,
 } from "./utils/schemas";
-import { submitForm, useGetFormDetails } from "@/app/services/form-service";
-import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useAppContext } from "@/app/hooks/useAppContext";
 import ConsentDialog from "@/app/components/landing-page/ConsentDialog";
@@ -68,35 +66,41 @@ export default function Form1({
 
   const [showConcentDialog, setShowConcentDialog] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [isSubmitting, setSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const [formDetails, setFormDetails] = useState<any>(null);
   const t = useTranslations("Index");
 
   const client = generateClient<Schema>({});
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     // if (watchAll?.images?.length < 2 && formDetails.images === true) {
     //   return toast.warn("Please upload at least two images");
     // }
-    mutate(watchAll as any);
+    // mutate(watchAll as any);
+    try {
+      setSubmitting(true)
+      await client.queries.generateReport({
+        body: JSON.stringify(watchAll),
+        formId: params.formid,
+        senderEmail: formDetails.senderEmail
+      });
+      toast.success("Form Filled");
+      setIsSuccess(true)
+      await client.models.IndexForm.update({id: params.formid, isFormSubmit: true});
+
+    } catch(err) {
+      console.error('Error submitting form:', err)
+      // toast.error();
+
+    } finally {
+      setSubmitting(false);
+    }
+
   };
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isDown, setIsDown] = useState(false);
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: (body) => submitForm(params.formid, body),
-    onSuccess: (data) => {
-      toast.success("Form Filled");
-      setTimeout(() => {
-        setIsSubmitted(true);
-      }, 400);
-    },
-    onError: (error: any) => {
-      if (error?.error) {
-        return toast.error(error.error);
-      }
-      toast.error("Something went wrong!");
-    },
-  });
 
   const getFormDetails = async () => {
     setLoading(true);
@@ -208,7 +212,7 @@ export default function Form1({
     );
   }
 
-  if (isSubmitted) {
+  if (isSuccess) {
     return <Success />;
   }
 
@@ -246,7 +250,7 @@ export default function Form1({
             variant={"contained"}
             // onClick={hookForm.handleSubmit(handleSubmitForm)}
             onClick={handleButtonClick}
-            disabled={isPending || !isDown}
+            disabled={isSubmitting || !isDown}
           >
             {currentStep === 3 ? t("submit") : t("next")}
           </Button>
@@ -254,7 +258,7 @@ export default function Form1({
 
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={isPending}
+          open={isSubmitting}
         >
           <CircularProgress color="inherit" />
         </Backdrop>

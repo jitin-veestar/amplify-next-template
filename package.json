@@ -22,7 +22,6 @@
     "@mui/material": "^5.16.6",
     "@mui/material-nextjs": "^5.16.6",
     "@mui/x-date-pickers": "^7.11.1",
-    "@tanstack/react-query": "^5.51.21",
     "aws-amplify": "^6.6.0",
     "aws-cdk-lib": "^2.158.0",
     "axios": "^1.7.3",
