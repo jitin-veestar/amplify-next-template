@@ -1,6 +1,4 @@
 import {SendRawEmailCommand, SESClient, } from '@aws-sdk/client-ses';
-import mime from 'mime';
-import * as MailComposer from 'nodemailer/lib/mail-composer';
 import { deliverPdfTemplate } from './emailTemplate';
 import { CreateForm1 } from './pdf';
 
