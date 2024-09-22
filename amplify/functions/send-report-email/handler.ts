@@ -5,7 +5,7 @@ import { CreateForm1 } from './pdf';
 const sesClient = new SESClient({region: 'ap-south-1'});
 
 
-export const handler = async (event, context) => {
+export const handler = async (event: any, context: any) => {
   // your function code goes here
   const fromEmail = 'jitinrathi910949@gmail.com';
 
@@ -67,7 +67,7 @@ export const handler = async (event, context) => {
   }
 };
 
-async function createRawEmail(sender, recipient, subject, bodyText, attachment) {
+async function createRawEmail(sender: string, recipient: string, subject: string, bodyText: string, attachment: any) {
   const boundary = 'NextPart';
   const header = `From: ${sender}\n` +
       `To: ${recipient}\n` +

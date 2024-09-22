@@ -171,7 +171,7 @@ function drawFormFields({ data, page, yOffset, font, fontBold, pdfDoc }: any) {
       let keyPrinted = false; // To track if the key has been printed
       const firstOrLast = colInd === 0;
       const indent = firstOrLast ? 10 : 0;
-      valueLines.forEach((line, index) => {
+      valueLines.forEach((line: any, index: number) => {
         const yOffsetAdjusted = yOffset - index * (AnswerTextSize + 3); // Adjust as needed for line spacing
 
         // Print the key only before the first line of the value

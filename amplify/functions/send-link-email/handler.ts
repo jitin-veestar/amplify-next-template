@@ -4,7 +4,7 @@ import { registerFormTemp } from './emailTemplate';
 const sesClient = new SESClient({region: 'ap-south-1'});
 
 
-export const handler = async (event, context) => {
+export const handler = async (event: any, context: any) => {
   // your function code goes here
   const senderEmail = 'jitinrathi910949@gmail.com';
 
