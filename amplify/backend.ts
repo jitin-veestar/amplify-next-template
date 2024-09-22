@@ -1,5 +1,5 @@
 import { defineBackend } from '@aws-amplify/backend';
-import * as iam from "aws-cdk-lib/aws-iam"
+import {Effect, PolicyStatement} from "aws-cdk-lib/aws-iam"
 import { auth } from './auth/resource.js';
 import { data } from './data/resource.js';
 import { sendLinkEmail } from './functions/send-link-email/resource';
@@ -17,9 +17,9 @@ const sendLinkEmailLambda = backend.sendLinkEmail.resources.lambda;
 const sendReportEmailLambda = backend.sendReportEmail.resources.lambda; 
 
 
-const statement = new iam.PolicyStatement({
+const statement = new PolicyStatement({
   sid: "AllowSendEmailLink",
-  effect: iam.Effect.ALLOW,
+  effect: Effect.ALLOW,
   actions: ["ses:SendEmail",  'ses:SendRawEmail'],
   resources: ['*'],
           conditions: {
