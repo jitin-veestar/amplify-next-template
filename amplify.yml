@@ -17,6 +17,4 @@ frontend:
   cache:
     paths:
       - .next/cache/**/*
-      - .yarn/**/*
       - node_modules/**/*
-      - yarn.lock
