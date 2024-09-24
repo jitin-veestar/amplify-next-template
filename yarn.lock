@@ -8026,7 +8026,7 @@ __metadata:
     autoprefixer: ^10.4.19
     aws-amplify: ^6.6.0
     aws-cdk: ^2.159.1
-    aws-cdk-lib: ^2.158.0
+    aws-cdk-lib: ^2.159.1
     axios: ^1.7.3
     browser-image-compression: ^2.0.2
     constructs: ^10.3.0
@@ -8067,9 +8067,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-cdk-lib@npm:^2.158.0":
-  version: 2.158.0
-  resolution: "aws-cdk-lib@npm:2.158.0"
+"aws-cdk-lib@npm:^2.159.1":
+  version: 2.159.1
+  resolution: "aws-cdk-lib@npm:2.159.1"
   dependencies:
     "@aws-cdk/asset-awscli-v1": ^2.2.202
     "@aws-cdk/asset-kubectl-v20": ^2.1.2
@@ -8088,7 +8088,7 @@ __metadata:
     yaml: 1.10.2
   peerDependencies:
     constructs: ^10.0.0
-  checksum: 7b3181cc271ea776003918bf1e635380e5a00dfff9da7496df3446738224c08ea861d9c3a8d7f936208820deada5081725d7b6c1b620850a456fffd24138d900
+  checksum: 10ef7102adde49644671c521ca6a60fc612474c267ecf2f4cb91dd0f27b2a130dc324f918b61cd3a74c75bd662a5a3da133702081896c73799370bc300563d6a
   languageName: node
   linkType: hard
 
